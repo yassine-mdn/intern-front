@@ -1,13 +1,103 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .themed-field {
+        @apply border border-gray-300 text-gray-900 text-base rounded-lg hover:border-main-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+    }
+
+    .sidebar-button {
+        @apply flex flex-row w-[95%] h-16 items-center p-1  focus:bg-opacity-10 gap-4 items-start justify-start text-white text-opacity-30 focus:text-opacity-100 focus:after:small-line
+    }
+
+    .small-line {
+        @apply content-[""]  h-1/2 w-1 self-center rounded-lg bg-white
+    }
+
+    .card {
+        @apply rounded-lg bg-white dark:bg-gray-800 p-6 drop-shadow-md w-full min-w-0 h-full
+    }
+
+
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+input:focus, textarea:focus, select:focus {
+    @apply ring-main-500 ring-2
 }
+
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: 0.1px;
+}
+
+input:valid[focused="true"] {
+    @apply ring-secondary-500 ring-2
+}
+
+input:invalid[focused="true"] {
+    @apply ring-red-500 ring-2
+}
+
+.rdt_TableHead {
+    @apply !bg-transparent
+}
+
+.rdt_TableHeadRow {
+    @apply !bg-gray-50 dark:!bg-gray-900 !border-0 outline-0
+}
+
+.rdt_TableHeader {
+    @apply !bg-transparent text-red-500 rounded-3xl
+}
+
+.rdt_Table {
+    @apply  !bg-transparent
+}
+
+.rdt_TableRow {
+    @apply !bg-white dark:!bg-gray-800 !border-0 shadow-sm shadow-neutral-300/20 dark:shadow-gray-900/20 h-16 my-1 rounded-xl
+}
+.rdt_TableCol {
+    @apply bg-transparent  h-16  rounded-xl border-0 outline-0
+}
+
+.rdt_TableCol_Sortable {
+    @apply bg-transparent text-neutral-600 dark:text-gray-500 text-lg h-60 font-medium
+}
+
+.rdt_TableCell {
+    @apply bg-transparent text-gray-500 dark:text-gray-400
+}
+
+.rdt_TableFooter {
+    @apply bg-indigo-200
+}
+
+.rdt_TableBody {
+    @apply !bg-transparent !p-1  border-0
+}
+
+.rdt_ExpanderRow {
+    @apply bg-lime-300
+}
+
+.kDEcCH{
+    @apply !bg-transparent !flex-none
+}
+
+.gYAELk{
+    @apply !h-full
+}
+
+.rdt_Pagination{
+    @apply !bg-transparent !text-gray-500 dark:!text-gray-400 !border-t-0 !font-semibold !text-base !h-full
+}
+
+.fyrdjl{
+    @apply !fill-gray-500 dark:!fill-gray-400
+}
+
+.fyrdjl:disabled{
+    @apply !fill-gray-200 dark:!fill-gray-700
+}
+

@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import data from "./data/test-data.json"
+import Homepage from "./pages/home-page/Homepage";
+import Signup from "./pages/sign-up/Signup";
+import Login from "./pages/login/login";
+import Page404 from "./pages/404/Page404";
+import Page500 from "./pages/505/Page500";
 
 function App() {
+    const getHeadings = () => {
+        return Object.keys(data[0]);
+    }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <div>
+      <Homepage/>
+  </div>
   );
 }
 
