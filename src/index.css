@@ -7,6 +7,10 @@
         @apply border border-gray-300 text-gray-900 text-base rounded-lg hover:border-main-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
     }
 
+    .form-field {
+        @apply border border-transparent bg-gray-100 text-gray-900 text-base rounded-xl hover:border-main-500 block w-full p-3 dark:bg-gray-700/30 dark:placeholder-gray-400 dark:text-white
+    }
+
     .sidebar-button {
         @apply flex flex-row w-[95%] h-16 items-center p-1  focus:bg-opacity-10 gap-4 items-start justify-start text-white text-opacity-30 focus:text-opacity-100 focus:after:small-line
     }
@@ -15,15 +19,53 @@
         @apply content-[""]  h-1/2 w-1 self-center rounded-lg bg-white
     }
 
+    .bottom-line {
+        @apply content-[""]   h-1 w-full self-center rounded-lg bg-main-500
+    }
+
+    .button-main{
+        @apply bg-main-500  hover:bg-main-600 active:bg-main-600 p-2.5 px-6 rounded-xl font-semibold text-lg text-white shadow-sm
+    }
+
+    .button-secondary{
+        @apply bg-secondary-500  hover:bg-secaondary-600 active:bg-secondary-600 p-2.5 px-6 rounded-xl font-semibold text-lg text-white shadow-sm
+    }
+
+    .form-header{
+        @apply block mb-2 text-base font-semibold text-gray-900 dark:text-white
+    }
+    .sub-header{
+        @apply block mb-2 text-sm font-semibold text-gray-900/80 dark:text-white/80
+    }
+
     .card {
-        @apply rounded-lg bg-white dark:bg-gray-800 p-6 drop-shadow-md w-full min-w-0 h-full
+        @apply bg-white dark:bg-gray-800 w-full rounded-2xl drop-shadow-md p-6
+    }
+
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+
+    .animation-delay-4000 {
+        animation-delay: 4s;
     }
 
 
 }
 
+input[type="file"] {
+    display: none;
+}
 input:focus, textarea:focus, select:focus {
     @apply ring-main-500 ring-2
+}
+
+input[type="checkbox"]{
+    @apply accent-main-400
+}
+
+input[type="checkbox"]:focus{
+    @apply ring-0
 }
 
 input:focus-visible, textarea:focus-visible, select:focus-visible {
@@ -37,6 +79,13 @@ input:valid[focused="true"] {
 input:invalid[focused="true"] {
     @apply ring-red-500 ring-2
 }
+
+.input [type='checkbox']{
+    -webkit-appearance: none;
+    appearance: none;
+    @apply !accent-amber-300
+}
+
 
 .rdt_TableHead {
     @apply !bg-transparent
@@ -74,7 +123,7 @@ input:invalid[focused="true"] {
 }
 
 .rdt_TableBody {
-    @apply !bg-transparent !p-1  border-0
+    @apply !bg-transparent !p-1 h-full  border-0
 }
 
 .rdt_ExpanderRow {
@@ -82,7 +131,7 @@ input:invalid[focused="true"] {
 }
 
 .kDEcCH{
-    @apply !bg-transparent !flex-none
+    @apply !bg-transparent !flex-none py-2
 }
 
 .gYAELk{
@@ -100,4 +149,48 @@ input:invalid[focused="true"] {
 .fyrdjl:disabled{
     @apply !fill-gray-200 dark:!fill-gray-700
 }
+
+.bzRnkJ{
+    @apply !bg-transparent !text-neutral-600 dark:!text-gray-500
+}
+
+.BafWS{
+    @apply !bg-transparent
+}
+
+.stack {
+    @apply place-items-center items-end [&>*]:w-full [&>*]:opacity-60 second-child:opacity-80 first-child:opacity-100
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active, .fc .fc-button-primary:not(:disabled):active{
+    @apply !bg-main-500 !ring !ring-main-500 !ring-offset-2 !ring-offset-white dark:!ring-offset-gray-800
+}
+
+.fc .fc-button-primary{
+    @apply !bg-main-400 !border-0
+}
+
+.fc .fc-button{
+    @apply !ring-0  !p-2.5 !px-6 !rounded-xl !mx-2
+}
+
+.fc .fc-toolbar{
+    @apply !flex !flex-wrap !items-center !justify-center  md:!justify-between
+}
+
+.fc .fc-toolbar-title{
+  @apply !font-semibold  !text-2xl !text-gray-900 dark:!text-white
+}
+
+.fc-theme-standard .fc-scrollgrid{
+   @apply !rounded-2xl dark:!border-gray-600
+}
+.fc-theme-standard td, .fc-theme-standard th{
+    @apply !rounded-b-2xl dark:!border-gray-600
+}
+.fc-theme-standard td, .fc-theme-standard th{
+    @apply  dark:!border-gray-600
+}
+
+
 

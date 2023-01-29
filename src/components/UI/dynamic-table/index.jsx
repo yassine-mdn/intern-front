@@ -1,177 +1,117 @@
-import React, {useEffect, useState} from "react";
+import React, {createContext, useContext, useEffect, useState} from "react";
 import DataTable from 'react-data-table-component';
 import SearchFilter from "../search-filter";
+import CreateDeleteButton from "../create-delete-button";
+import {SelectedIndexContext} from "../../../contex/SelectedIndexContext";
+import {differenceBy} from "lodash/array";
+import Spiner from "../Spiner";
+import placeholder from "lodash/fp/placeholder";
+import {columnsAdmin, columnsEtudiant, columnsProfesseur} from "../../../data/starter";
+import {ScreenWidthContext} from "../../../contex/ScreenWidthContext";
+import CardTable from "../card-table";
+import PopUpAlert from "../pop-up-alert";
+import {useLocation} from "react-router-dom";
+import TabBar from "../tab-bar";
 
-const DynamicTable = () => {
+const DynamicTable = ({columns = [placeholder],dataOrigin = [placeholder],deleteFunction,target}) => {
 
-    const columns = [
-        {
-            name: 'Nom',
-            selector: row => row.nom,
-            sortable: true,
-        },
-        {
-            name: 'Prenom',
-            selector: row => row.prenom,
-            sortable: true,
-        },
-        {
-            name: 'Email',
-            selector: row => row.email,
-            sortable: true,
-        },
-        {
-            name: 'Programme',
-            selector: row => row.programme,
-            sortable: true,
-        },
-    ];
+    const width = useContext(ScreenWidthContext)
 
-    const data = [
-        {
-            "idC": 1,
-            "nom": "Najib",
-            "prenom": "Mehdi",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        },
-        {
-            "idC": 2,
-            "nom": "Guermah",
-            "prenom": "Basma",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        },
-        {
-            "idC": 3,
-            "nom": "Ghogho",
-            "prenom": "Mounir",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        },
-        {
-            "idC": 4,
-            "nom": "Cherqui",
-            "prenom": "Othmane",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        },
-        {
-            "idC": 5,
-            "nom": "Nada",
-            "prenom": "Sbihi",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        },
-        {
-            "idC": 1,
-            "nom": "Najib",
-            "prenom": "Mehdi",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        },
-        {
-            "idC": 2,
-            "nom": "Guermah",
-            "prenom": "Basma",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        },
-        {
-            "idC": 3,
-            "nom": "Ghogho",
-            "prenom": "Mounir",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        },
-        {
-            "idC": 4,
-            "nom": "Cherqui",
-            "prenom": "Othmane",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        },
-        {
-            "idC": 5,
-            "nom": "Nada",
-            "prenom": "Sbihi",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        },
-        {
-            "idC": 1,
-            "nom": "Najib",
-            "prenom": "Mehdi",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        },
-        {
-            "idC": 2,
-            "nom": "Guermah",
-            "prenom": "Basma",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        },
-        {
-            "idC": 3,
-            "nom": "Ghogho",
-            "prenom": "Mounir",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        },
-        {
-            "idC": 4,
-            "nom": "Cherqui",
-            "prenom": "Othmane",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        },
-        {
-            "idC": 5,
-            "nom": "Nada",
-            "prenom": "Sbihi",
-            "email": "hadi-anouar.mokhtari@uir.ac.ma",
-            "programme": "info"
-        }
-    ]
+    let location = useLocation();
 
+
+    const [data,setData]= useState(dataOrigin)
     const [filterText, setFilterText] = React.useState('');
-    const [resetPaginationToggle, setResetPaginationToggle] = React.useState(false);
-    const [selectedIndex,setSelectedIndex] = useState(0);
+    const [selectedIndex, setSelectedIndex] = useState(0);
     const [selectedRows, setSelectedRows] = React.useState([]);
+    const [toggleCleared, setToggleCleared] = React.useState(false);
+    const [pending, setPending] = React.useState(true);
+    const [active, setActive] = useState(false);
+    const [isVisible, setVisible] = useState(() => {
+        return width > 768
+    })
 
-    let handleClick = (index) => {
-        setSelectedIndex(index);
-    };
 
+
+    const handleRowSelected = React.useCallback(state => {
+        setSelectedRows(state.selectedRows);
+    }, []);
+
+    useEffect(() => {
+        if (width < 768) {
+            setVisible(false)
+        } else setVisible(true)
+    }, [width]);
+
+    useEffect(() =>{
+        if (dataOrigin !== [placeholder]) setPending(false)
+    },[dataOrigin])
+
+
+    const keys = Object.keys(data[0]);
     const filteredItems = data.filter(
-        item => item.nom && item.nom.toLowerCase().includes(filterText.toLowerCase()),
+        item => item[keys[selectedIndex + 1]] && item[keys[selectedIndex + 1]].toLowerCase().includes(filterText.toLowerCase())
     );
+
 
     const subHeaderComponentMemo = React.useMemo(() => {
 
+        const handleDelete = () => {
+
+            if (window.confirm(`Are you sure you want to delete:\r ${selectedRows.map(r => r.idC)}?`)) {
+                setToggleCleared(!toggleCleared);
+                if (selectedRows.length === data.length) setData([placeholder])
+                else setData(differenceBy(data, selectedRows, 'idC'));
+
+                selectedRows.map((selectedRow) => deleteFunction(selectedRow.idC))
+            }
+        };
 
 
         return (
             <>
-                <SearchFilter options={columns} onFilter={e => setFilterText(e.target.value)}
-                              filterText={filterText}/>
+                <SelectedIndexContext.Provider value={{selectedIndex, setSelectedIndex}}>
+                    <SearchFilter options={columns} onFilter={e => setFilterText(e.target.value)}
+                                  filterText={filterText}/>
+                    <CreateDeleteButton target={target} selectedRows={selectedRows} createFunction={() => setActive(true)}
+                                        deleteFunction={handleDelete}/>
+                </SelectedIndexContext.Provider>
 
             </>
 
         );
-    }, [filterText, resetPaginationToggle]);
+    }, [data, selectedRows, toggleCleared, filterText, selectedIndex]);
 
     const paginationComponentOptions = {
-        noRowsPerPage: true,
-        selectAllRowsItem: true,
-        selectAllRowsItemText: 'Todos',
+        rowsPerPageText: "Lignes par page",
+        selectAllRowsItem: false,
+        rangeSeparatorText: 'de',
+        selectAllRowsItemText: 'Tous',
     };
 
+
     return (
-        <DataTable columns={columns} data={filteredItems} selectableRows={true} right={true} responsive={true}
-                   fixedHeader={true} fixedHeaderScrollHeight="100%" subHeader subHeaderComponent={subHeaderComponentMemo} pagination paginationComponentOptions={paginationComponentOptions}
-        />
+        <>
+            <div className={"mt-[4.5rem] bg-transparent"}>
+                {isVisible ?
+                    <DataTable columns={columns} data={filteredItems} selectableRows={true} center responsive={true}
+                               fixedHeader={true} fixedHeaderScrollHeight="100%" subHeader
+                               subHeaderComponent={subHeaderComponentMemo} pagination
+                               clearSelectedRows={toggleCleared} onSelectedRowsChange={handleRowSelected}
+                               progressPending={pending}
+                               progressComponent={<Spiner/>}
+                               paginationComponentOptions={paginationComponentOptions}
+                               className="scrollbar-hide"
+
+                    /> :
+                    <CardTable columns={columns} data={filteredItems}/>
+                }
+            </div>
+
+            <PopUpAlert open={active} setOpen={() => setActive(false)}/>
+        </>
+
+
     );
 };
 

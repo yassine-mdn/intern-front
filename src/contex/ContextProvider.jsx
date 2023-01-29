@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useState } from 'react';
+import placeholder from "lodash/fp/placeholder";
 
-const StateContext = createContext();
+const StateContext = createContext({});
 
 
 export const ContextProvider = ({ children }) => {
-    const [activeMenu, setActiveMenu] = useState(true);
+    const [activeMenu, setActiveMenu] = useState("not professeur");
     const [userType, setUserType] = useState("admin");
     const [userId,setUserId] = useState(null);
 
