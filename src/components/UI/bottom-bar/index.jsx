@@ -8,7 +8,7 @@ const Bottombar = ({links = adminLinks}) => {
     const normalLink = 'flex flex-col justify-center w-11/12 h-16 items-center p-1 focus:bg-opacity-10 gap-1 text-white text-sm opacity-30 ';
 
     return (
-        <div className=" sm:hidden bg-gradient-to-t from-main-600 to-main-500
+        <div className=" sm:hidden bg-main-600 rounded-t-lg
          fixed bottom-0 w-full h-20 flex justify-center items-center shadow-2xl px-2 py-4 gap-2" role="group">
             {links.map((link) => (
 

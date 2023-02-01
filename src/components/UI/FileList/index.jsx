@@ -32,7 +32,128 @@ const FileList = ({files=[
                 "email": "test@gmail.com"
             }
         }
+    },  {
+        "idF": 1,
+        "nom": "Screenshot_20221218_230113.png",
+        "type": "image/png",
+        "size": "1.3Mb",
+        "dateUpload": "2023-01-28T14:57:57.092+00:00",
+        "sender": {
+            "id": 1,
+            "admin": {
+                "idC": 1,
+                "nom": "mouddene",
+                "prenom": "yassine",
+                "email": "yassinemouddene@gmail.com"
+            },
+            "professeur": null,
+            "etudiant": null,
+            "rsd": null
+        },
+        "receiver": {
+            "id": 2,
+            "admin": null,
+            "professeur": null,
+            "etudiant": null,
+            "rsd": {
+                "idC": 2,
+                "nom": null,
+                "prenom": null,
+                "email": "test@gmail.com"
+            }
+        }
+    },  {
+        "idF": 1,
+        "nom": "Screenshot_20221218_230113.png",
+        "type": "image/png",
+        "size": "1.3Mb",
+        "dateUpload": "2023-01-28T14:57:57.092+00:00",
+        "sender": {
+            "id": 1,
+            "admin": {
+                "idC": 1,
+                "nom": "mouddene",
+                "prenom": "yassine",
+                "email": "yassinemouddene@gmail.com"
+            },
+            "professeur": null,
+            "etudiant": null,
+            "rsd": null
+        },
+        "receiver": {
+            "id": 2,
+            "admin": null,
+            "professeur": null,
+            "etudiant": null,
+            "rsd": {
+                "idC": 2,
+                "nom": null,
+                "prenom": null,
+                "email": "test@gmail.com"
+            }
+        }
+    },  {
+        "idF": 1,
+        "nom": "Screenshot_20221218_230113.png",
+        "type": "image/png",
+        "size": "1.3Mb",
+        "dateUpload": "2023-01-28T14:57:57.092+00:00",
+        "sender": {
+            "id": 1,
+            "admin": {
+                "idC": 1,
+                "nom": "mouddene",
+                "prenom": "yassine",
+                "email": "yassinemouddene@gmail.com"
+            },
+            "professeur": null,
+            "etudiant": null,
+            "rsd": null
+        },
+        "receiver": {
+            "id": 2,
+            "admin": null,
+            "professeur": null,
+            "etudiant": null,
+            "rsd": {
+                "idC": 2,
+                "nom": null,
+                "prenom": null,
+                "email": "test@gmail.com"
+            }
+        }
+    },  {
+        "idF": 1,
+        "nom": "Screenshot_20221218_230113.png",
+        "type": "image/png",
+        "size": "1.3Mb",
+        "dateUpload": "2023-01-28T14:57:57.092+00:00",
+        "sender": {
+            "id": 1,
+            "admin": {
+                "idC": 1,
+                "nom": "mouddene",
+                "prenom": "yassine",
+                "email": "yassinemouddene@gmail.com"
+            },
+            "professeur": null,
+            "etudiant": null,
+            "rsd": null
+        },
+        "receiver": {
+            "id": 2,
+            "admin": null,
+            "professeur": null,
+            "etudiant": null,
+            "rsd": {
+                "idC": 2,
+                "nom": null,
+                "prenom": null,
+                "email": "test@gmail.com"
+            }
+        }
     }
+
 ],getRecieved = true}) => {
 
     return (

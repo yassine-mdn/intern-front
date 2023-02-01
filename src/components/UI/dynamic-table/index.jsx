@@ -10,14 +10,15 @@ import {columnsAdmin, columnsEtudiant, columnsProfesseur} from "../../../data/st
 import {ScreenWidthContext} from "../../../contex/ScreenWidthContext";
 import CardTable from "../card-table";
 import PopUpAlert from "../pop-up-alert";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import TabBar from "../tab-bar";
 
-const DynamicTable = ({columns = [placeholder],dataOrigin = [placeholder],deleteFunction,target}) => {
+const DynamicTable = ({columns = [placeholder],dataOrigin = [placeholder],deleteFunction,target,loading,className }) => {
 
     const width = useContext(ScreenWidthContext)
 
-    let location = useLocation();
+    let navigate = useNavigate();
+
 
 
     const [data,setData]= useState(dataOrigin)
@@ -25,7 +26,6 @@ const DynamicTable = ({columns = [placeholder],dataOrigin = [placeholder],delete
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [selectedRows, setSelectedRows] = React.useState([]);
     const [toggleCleared, setToggleCleared] = React.useState(false);
-    const [pending, setPending] = React.useState(true);
     const [active, setActive] = useState(false);
     const [isVisible, setVisible] = useState(() => {
         return width > 768
@@ -42,10 +42,6 @@ const DynamicTable = ({columns = [placeholder],dataOrigin = [placeholder],delete
             setVisible(false)
         } else setVisible(true)
     }, [width]);
-
-    useEffect(() =>{
-        if (dataOrigin !== [placeholder]) setPending(false)
-    },[dataOrigin])
 
 
     const keys = Object.keys(data[0]);
@@ -73,7 +69,7 @@ const DynamicTable = ({columns = [placeholder],dataOrigin = [placeholder],delete
                 <SelectedIndexContext.Provider value={{selectedIndex, setSelectedIndex}}>
                     <SearchFilter options={columns} onFilter={e => setFilterText(e.target.value)}
                                   filterText={filterText}/>
-                    <CreateDeleteButton target={target} selectedRows={selectedRows} createFunction={() => setActive(true)}
+                    <CreateDeleteButton target={target} selectedRows={selectedRows} createFunction={() => navigate("/Admin/etudiant/add")}
                                         deleteFunction={handleDelete}/>
                 </SelectedIndexContext.Provider>
 
@@ -83,7 +79,7 @@ const DynamicTable = ({columns = [placeholder],dataOrigin = [placeholder],delete
     }, [data, selectedRows, toggleCleared, filterText, selectedIndex]);
 
     const paginationComponentOptions = {
-        rowsPerPageText: "Lignes par page",
+        noRowsPerPage:true,
         selectAllRowsItem: false,
         rangeSeparatorText: 'de',
         selectAllRowsItemText: 'Tous',
@@ -92,13 +88,12 @@ const DynamicTable = ({columns = [placeholder],dataOrigin = [placeholder],delete
 
     return (
         <>
-            <div className={"mt-[4.5rem] bg-transparent"}>
                 {isVisible ?
                     <DataTable columns={columns} data={filteredItems} selectableRows={true} center responsive={true}
                                fixedHeader={true} fixedHeaderScrollHeight="100%" subHeader
                                subHeaderComponent={subHeaderComponentMemo} pagination
                                clearSelectedRows={toggleCleared} onSelectedRowsChange={handleRowSelected}
-                               progressPending={pending}
+                               progressPending={loading}
                                progressComponent={<Spiner/>}
                                paginationComponentOptions={paginationComponentOptions}
                                className="scrollbar-hide"
@@ -106,7 +101,6 @@ const DynamicTable = ({columns = [placeholder],dataOrigin = [placeholder],delete
                     /> :
                     <CardTable columns={columns} data={filteredItems}/>
                 }
-            </div>
 
             <PopUpAlert open={active} setOpen={() => setActive(false)}/>
         </>

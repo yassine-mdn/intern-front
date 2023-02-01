@@ -6,6 +6,7 @@ import {addEtudiant, deleteEtudiant, getAllEtudiants, getEtudiantById} from "../
 import {deleteProfesseur, getAllProfesseurs} from "../../../api/professeur";
 import {getAllResponssablesDeStage} from "../../../api/responssableDeStage";
 import {getAllProgrammes} from "../../../api/programme";
+import {useNavigate} from "react-router-dom";
 
 
 const options = [
@@ -27,6 +28,8 @@ const EtudiantsForm = () => {
     const [encadrant, setEncadrant] = useState(null);
     const [superviseur, setSuperviseur] = useState(null);
     const [niveau, setNiveau] = useState(null);
+
+    let navigate = useNavigate();
 
 
     const etudiantFetch = useQuery({
@@ -52,13 +55,6 @@ const EtudiantsForm = () => {
         queryFn: getAllProgrammes,
     })
 
-    useEffect(()=>{
-        if (rdsFetch.isSuccess) setSuperviseurList(rdsFetch.data.map((option) =>({value:option.idC, label: `${option.nom} ${option.prenom}`})))
-        if (professeurFetch.isSuccess) setEncadrantList(professeurFetch.data.map((option) =>({value:option.idC, label: `${option.nom} ${option.prenom}`})))
-        if (programmeFetch.isSuccess) setprogrammeList(programmeFetch.data.map((option) =>({value:option.idC, label: option.nom})))
-       // if (etudiantFetch.isSuccess) setSuperviseurList(rdsFetch.data.map((option) =>({value:option.idC, label: `${option.nom} ${option.prenom}`})))
-    },[rdsFetch.status,professeurFetch.status,programmeFetch.status])
-
 
     const handleChange = value => {setNiveau(value);};
     const handleSuperviseur = value => {setSuperviseur(value);}
@@ -68,6 +64,7 @@ const EtudiantsForm = () => {
     return (
         <div>
             <div
+                onClick={()=>navigate(-1)}
                 className="fixed  top-16 left-0 z-10 h-[4.5rem] w-full xl:ml-[15%] xl:w-[85%]  bg-white dark:bg-gray-800 shadow-md  shadow-neutral-300/20 dark:shadow-gray-900/20 px-4 py-2.5 flex justify-between">
                 <button
                     className="bg-gray-200 dark:bg-gray-700/80 hover:bg-gray-300 dark:hover:bg-gray-700 active:bg-gray-300 dark:active:bg-gray-700 p-2.5 px-6 rounded-xl font-semibold text-lg text-gray-900 dark:text-gray-400 shadow-sm">Annuler

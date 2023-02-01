@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {Link, Navigate} from "react-router-dom";
 import axios from "axios";
 import TimedPopUp from "../../components/UI/timed-pop-up";
 import { usePermify } from "@permify/react-role";
+import {AuthContext} from "../../contex/AuthContext";
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -11,8 +13,10 @@ const Login = () => {
     const [passWord,setPassWord] = useState('')
     const [valid,setvalid] = useState(true)
     const [showPopUp, setShowPopUp] = useState(false);
+    const {setJwt} = useContext(AuthContext);
+    const {setUser} = useContext(AuthContext);
+    let navigate = useNavigate();
 
-    const { setUser } = usePermify();
     const sendLoginRequest = (e) =>{
         e.preventDefault()
         let session_url = 'http://localhost:8080/api/v1/auth/authenticate';
@@ -22,10 +26,14 @@ const Login = () => {
                 "password":passWord
             }
         ).then(function(response) {
-            console.log(JSON.stringify(response.data));
+            setJwt(response.data?.token);
             setUser({
-                id: response.data.idC
+                id: response.data?.id,
+                nom: response.data?.nom,
+                prenom: response.data?.prenom,
+                role: response.data?.role
             })
+            navigate("/Admin")
         }).catch(function(error) {
           setShowPopUp(true)
         });

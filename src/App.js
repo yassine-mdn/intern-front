@@ -10,26 +10,32 @@ import AdminForm from "./pages/forms/compte";
 import Home from "./pages/home";
 import Calendar from "./components/UI/calendar";
 import {PermifyProvider} from "@permify/react-role";
+import AdminDash from "./apps/admin/AdminDash";
+import EtudiantAdmin from "./apps/admin/EtudiantAdmin";
+import ProfAdmin from "./apps/admin/ProfAdmin";
+import RdsAdmin from "./apps/admin/RdsAdmin";
+import EtablissementList from "./components/UI/EtablissementList";
+import EtablissementForm from "./pages/forms/etablissement";
 
 function App() {
 
   return (
   <Routes>
-          <Route path="/Role" element={<Container/>}>
+          <Route path="/Admin" element={<AdminDash/>}>
               <Route path="Accounts">
-                  <Route index element={<DynamicTable/>}/>
+                  <Route index element={<EtudiantAdmin/>}/>
                   <Route path="etudiant" >
-                      <Route index element={<DynamicTable/>}/>
+                      <Route index element={<EtudiantAdmin/>}/>
                       <Route path=":id" element={<EtudiantsForm/>}/>
                       <Route path="add" element={<EtudiantsForm/>}/>
                   </Route>
                   <Route path="professeur" >
-                      <Route index element={<DynamicTable/>}/>
+                      <Route index element={<ProfAdmin/>}/>
                       <Route path=":id" element={<ProfesseurForm/>}/>
                       <Route path="add" element={<ProfesseurForm/>}/>
                   </Route>
                   <Route path="responsable" >
-                      <Route index element={<DynamicTable/>}/>
+                      <Route index element={<RdsAdmin/>}/>
                       <Route path=":id" element={<AdminForm/>}/>
                       <Route path="add" element={<AdminForm/>}/>
                   </Route>
@@ -39,8 +45,9 @@ function App() {
                       <Route path="add" element={<AdminForm/>}/>
                   </Route>
               </Route>
-              <Route index element={<Home/>}/>
-              <Route path="Home" element={<Home/>}/>
+              <Route index element={<EtablissementList/>}/>
+              <Route path="Home" element={<EtablissementList/>}/>
+              <Route path="Etablissement/:idEta" element={<EtablissementForm/>}/>
               <Route path="Calendar" element={<Calendar/>}/>
           </Route>
       <Route path={"/"} element={<Login/>}/>

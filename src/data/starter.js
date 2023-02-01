@@ -7,29 +7,29 @@ export const adminLinks = [
     {
         name: 'Home',
         icon: <HomeIcon className="w-6 h-6 text-white"/>,
-        route: "/Home",
+        route: "/Admin/Home",
     },
     {
         name: 'Accounts',
         icon: <UserCircleIcon className="w-6 h-6 text-white"/>,
-        route: "/Accounts",
+        route: "/Admin/Accounts/professeur",
     },
     {
         name: 'Files',
         icon: <FolderIcon className="w-6 h-6 text-white"/>,
-        route: "/Files",
+        route: "/Admin/Files",
 
     },
     {
         name: 'calendar',
         icon: <CalendarIcon className="w-6 h-6 text-white"/>,
-        route: "/Calendar",
+        route: "/Admin/Calendar",
 
     },
     {
         name: 'Charts',
         icon: <ChartBarIcon className="w-6 h-6 text-white"/>,
-        route: "/Charts",
+        route: "/Admin/Charts",
 
     },
 ]
@@ -37,20 +37,20 @@ export const adminLinks = [
 export const tabsTable = [
     {
         name: 'Etudiant',
-        route: "/Accounts/etudiant",
+        route: "/Admin/Accounts/etudiant",
     },
     {
         name: 'Professeur',
-        route: "/Accounts/professeur",
+        route: "professeur",
     },
     {
         name: 'Responsable',
-        route: "/Accounts/responsable",
+        route: "responsable",
 
     },
     {
         name: 'Admin',
-        route: "/Accounts/admin",
+        route: "admin",
 
     },
 ]

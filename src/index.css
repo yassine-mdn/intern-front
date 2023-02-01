@@ -123,7 +123,7 @@ input:invalid[focused="true"] {
 }
 
 .rdt_TableBody {
-    @apply !bg-transparent !p-1 h-full  border-0
+    @apply !bg-transparent !p-1 !h-full  border-0
 }
 
 .rdt_ExpanderRow {
@@ -131,12 +131,10 @@ input:invalid[focused="true"] {
 }
 
 .kDEcCH{
-    @apply !bg-transparent !flex-none py-2
+    @apply !bg-transparent !flex-none
 }
 
-.gYAELk{
-    @apply !h-full
-}
+
 
 .rdt_Pagination{
     @apply !bg-transparent !text-gray-500 dark:!text-gray-400 !border-t-0 !font-semibold !text-base !h-full

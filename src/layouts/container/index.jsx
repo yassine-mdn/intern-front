@@ -41,12 +41,12 @@ const Container = ({children,sidebar,role}) => {
                 <ScreenWidthContext.Provider value={width}>
                     <ShowSidebarContext.Provider value={{isVisible,setVisible}}>
                         <Sidebar />
-                        <Topbar />
+                        <Topbar  />
                     </ShowSidebarContext.Provider>
                     <div
                         className="xl:pl-[15%] pt-16 pb-20 sm:pb-0 flex flex-col items-center h-screen justify-center scrollbar-hide bg-gray-50 dark:bg-gray-900 z-0" >
                         <div className="flex flex-col gap-4 p-4 w-full h-full overflow-y-scroll scrollbar-hide">
-                            <Outlet/>
+                            {children}
                         </div>
                     </div>
                     <Bottombar/>

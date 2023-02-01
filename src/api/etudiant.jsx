@@ -2,10 +2,7 @@ import React from "react";
 import axios from "axios";
 
 
-export const getAllEtudiants = () => {
-    return axios.get("http://localhost:8080/api/v1/etudiants")
-        .then(res => res.data)
-}
+
 
 export const getEtudiantById = (idC) => {
     return axios.get(`http://localhost:8080/api/v1/etudiants/${idC}`)
